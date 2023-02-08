@@ -1,0 +1,92 @@
+clc
+close all;
+clear al;
+%input sequence
+x = input("enter x(n): ")
+N = length(x)
+n=0:N-1
+
+figure(1);
+xlabel('n');
+ylabel('x(n)');
+grid on;
+%analysis part
+Xk=[];
+for k=0:N-1
+    t=0;
+    for m=0:N-1
+        t=t+(x(m+1)*exp(-1i*2*pi*k*m/N));
+    end
+    Xk(k+1)=t;
+end
+
+figure(2);
+ stem(n,Xk,'k','filled','linewidth',2);
+ %axis([-max(Xk)+1,max(Xk)+1,-(max(Xk)+1),max(Xk)+1]);
+ title("analysis of x(n)-Xk");
+ xlabel("k");
+ ylabel("X(K)");
+ grid on;
+ 
+ figure(3);
+ real_Xk=real(Xk);
+ imag_Xk=imag(Xk);
+ disp(real_Xk);
+ disp(imag_Xk);
+ stem(real_Xk,imag_Xk,'k','filled','linewidth',2);
+ %axis([-max(real_Xk)+1*max(real_Xk)+1-(max(Xk)+1)*max(Xk)+1]);
+ title("analysis of x(n)-X(K)");
+ xlabel("Real(X(k))");
+ ylabel("imaginary(X(k))");
+ 
+ %magnitude and phase
+ mag=abs(Xk);
+ ph=[];
+ for i=0:N-1
+     ph(i+1)=atan(imag(Xk(i+1))/real(Xk(i+1)));
+ end
+ %mag plot
+ figure (4);
+ stem(n,mag,'filled','linewidth',2);
+ %axis([-(N),N-(max(mag)+1)*max(mag)+1]);
+ title('magnitute plot of Xk');
+ xlabel('k');
+ ylabel("X(k)");
+ grid on;
+ 
+ %phase plot
+ figure(5);
+ stem(n,ph,'k','filled','linewidth',2);
+ %axis([-(N),N-(max(ph)+1)*max(ph)+1]);
+ title('phase plot of Xk');
+ xlabel('k');
+ ylabel("w-X(k)");
+ grid on;
+ 
+ %synthesis part ofx(n) from Xk
+ 
+ xr=[];
+ for m=0:N-1
+     t=0;
+     for k=0:N-1
+         t=t+(Xk(k+1)*exp(1i*2*pi*k*m/N));
+     end
+     xr(m+1)=t/N;
+ end
+ 
+ disp("The input sequence x(n) is ");
+ disp(x);
+ disp("Analysis of x(n) is ");
+ disp(Xk);
+ disp("the Magnitude of X(k) is ");
+ disp(ph);
+ disp("Synthesis ofx(n) ");
+ disp(xr);
+ 
+ figure(6);
+ stem(n,xr,'K','filled','linewidth',2);
+ %axis([-44-44]);
+ title('Reconstruction of x(n)');
+ xlabel('n');
+ ylabel('x(n)');
+ grid on;
