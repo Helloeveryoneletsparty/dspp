@@ -1,0 +1,28 @@
+#include<stdio.h>
+unsigned char data[8]={10,9,2,3,2,3,4,3};
+unsigned int SORT_result=0;
+unsigned SORTING_OP()
+{
+  int i,j,temp;
+  for(i=0;i<8;i++)
+  {
+    for(j=i+1;j<8;j++)
+    {
+      if(data[i]>data[j]{
+        temp=data[i];
+        data[i]=data[j];
+        data[j]=temp;
+        }
+     }
+  }
+  for(i=0;i<8;i++){
+      printf("%d\n",data[i]);
+  }
+return(data[i]);
+}
+int main(void)
+{
+    SORT_RESULT=SORTING_OP();
+    return 0;
+ }
+      
